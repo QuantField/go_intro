@@ -39,7 +39,6 @@ func main(){
 	dat, err := ioutil.ReadFile("dump_test.txt")
 	check_error(err)
 	fmt.Println(string(dat))
-
 	
 
 }
