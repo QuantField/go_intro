@@ -1,3 +1,19 @@
+// as close we can ge to a class
+/*
+class Person:
+	def __init__(self, name, age):
+		self.name = name
+		self.age = age
+
+	# not really helpfull, just an example
+	def  Set(name , age ):
+		self.name, self.age = name, age
+
+	def __str__(self):
+		return	"Person( Name: {} , Age: {} )"\
+				.format(self.name, self.age)
+*/
+
 package main
 
 import (
@@ -25,7 +41,8 @@ func (p *Person) Set(name string, age int) {
 
 // equivalent of Python __str__
 func (p *Person) String() string {
-	disp := fmt.Sprintf("Person( Name: %s , Age: %s )", p.name, strconv.Itoa(p.age))
+	disp := fmt.Sprintf("Person( Name: %s , Age: %s )",
+		p.name, strconv.Itoa(p.age))
 	return disp
 }
 
