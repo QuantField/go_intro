@@ -27,4 +27,9 @@ func main() {
 	val := map2["bb"]
 	fmt.Println(val)
 
+	fmt.Println("Deleting a map key")
+	fmt.Println(map2)
+	delete(map2, "bb")
+	fmt.Println(map2)
+
 }
