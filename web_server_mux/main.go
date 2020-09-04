@@ -21,6 +21,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -43,8 +44,11 @@ var Articles []Article
 
 func homePage(w http.ResponseWriter, r *http.Request) {
 
-	fmt.Fprintf(w, "Welcome to the HomePage!")
+	//fmt.Fprintf(w, "<h1>Welcome to the HomePage!</h1>")
+	tpl, _ := template.ParseFiles("index.gohtml")
+	tpl.Execute(w, "John")
 	fmt.Println("Endpoint Hit: homePage")
+
 }
 
 // returning our newly populated Articles variable, encoded in JSON format:
@@ -69,6 +73,8 @@ func handleRequests() {
 	myRouter.HandleFunc("/article/{id}", updateArticle).Methods("PUT")
 
 	// localhost:3000/article/1 will display article with Id=1
+	// or using curl:
+	// curl http:/localhost:3000/article/1
 	myRouter.HandleFunc("/article/{id}", returnSingleArticle)
 
 	//instead of passing in nil, we want
