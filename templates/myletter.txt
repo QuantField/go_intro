@@ -1,0 +1,8 @@
+Dear {{.}},
+
+This is to let you know that I am planing to do this and that at 
+the following address.
+
+Thanks.
+
+K.S

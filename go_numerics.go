@@ -1,11 +1,14 @@
 package main
 
-import "fmt"
-import "math"
+import (
+       "fmt"
+       "math"
+       "os" )
 
 
+type realValuedFunction func(float64) float64
 
-func secant(f func(float64) float64 , a float64, b float64) (float64, int) {
+func secant(f realValuedFunction , a , b float64) (float64, int) {
    epsilon, MaxIter := 1.0E-6, 50
    fa,  fb   := f(a),f(b)
    iter := 2
@@ -41,7 +44,7 @@ func secant(f func(float64) float64 , a float64, b float64) (float64, int) {
 }
 
 
-func  brent(f  func(float64) float64, a float64, b float64) (float64, int) {
+func  brent(f realValuedFunction , a , b float64) (float64, int) {
    epsilon, MaxIter := 1.0E-6, 50
    fa,  fb   := f(a),f(b)
    iter := 2
@@ -84,6 +87,28 @@ func  brent(f  func(float64) float64, a float64, b float64) (float64, int) {
 }
 
 
+func integrate(x, y  []float64 ) float64 {
+
+        N := len(x)-1
+        
+		if (N%2 !=0) { 
+		   fmt.Println("method integrate error: length of array  must be odd.") 
+		   os.Exit(1)
+		}
+		if (len(x)!=len(y)){
+           fmt.Println("method integrate error: x and y must have same length."); 
+           os.Exit(1);
+        }
+        
+        h:= x[1]-x[0]
+		// Composite Simpson integration
+ 		S:= y[0]+ y[N]
+		for i:=1; i<=N; i=i+2 {  S+= 4*y[i] }
+        for i:=2; i<=N-1; i=i+2 { S+= 2*y[i] }
+        return  h*S/3	  	        
+}
+
+
 
 func main(){
 
@@ -95,5 +120,13 @@ func main(){
    secant(cubic,s,d)
    fmt.Println()
    brent(cubic,s,d)
+
+   // testing simpson integration
+
+   x:= []float64{0, 1, 2, 3, 4}
+   y:= []float64{0, 1, 4, 9, 16}
+   fmt.Println()
+   fmt.Println(integrate(x,y)) // 4^3/3
+
 
 }
